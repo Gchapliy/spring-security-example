@@ -21,11 +21,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception { // @formatter:off
         http
                 .authorizeRequests()
                 .antMatchers("/signup", "/user/register").permitAll()
@@ -33,11 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .formLogin().
-                loginPage("/login").permitAll().
-                loginProcessingUrl("/doLogin")
+                    loginPage("/login").permitAll().
+                    loginProcessingUrl("/doLogin")
 
                 .and()
-                .logout().permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/doLogout", "POST"))
+                .logout().permitAll().logoutUrl("/logout")
 
                 .and()
                 .csrf().disable();
