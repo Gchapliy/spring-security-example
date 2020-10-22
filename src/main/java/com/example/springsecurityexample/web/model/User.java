@@ -1,18 +1,34 @@
 package com.example.springsecurityexample.web.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Calendar;
 
+import com.example.springsecurityexample.validation.PasswordMatches;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+@Entity(name = "users")
+@PasswordMatches
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Username is required.")
-    private String username;
-
+    @Email
     @NotEmpty(message = "Email is required.")
     private String email;
+
+    @NotEmpty(message = "Password is required.")
+    private String password;
+
+    @Transient
+    @NotEmpty(message = "Password confirmation is required.")
+    private String passwordConfirmation;
 
     private Calendar created = Calendar.getInstance();
 
@@ -32,19 +48,32 @@ public class User {
         this.created = created;
     }
 
-    public String getUsername() {
-        return this.username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(final String password) {
+        this.password = password;
+    }
+
+    public String getPasswordConfirmation() {
+        return passwordConfirmation;
+    }
+
+    public void setPasswordConfirmation(final String passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", email='" + email + '\'' + ", password='" + password + '\'' + ", passwordConfirmation='" + passwordConfirmation + '\'' + ", created=" + created + '}';
     }
 }

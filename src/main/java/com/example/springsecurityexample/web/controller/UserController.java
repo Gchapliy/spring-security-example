@@ -21,8 +21,6 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    //
-
     @Autowired
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -61,7 +59,7 @@ public class UserController {
 
     @RequestMapping(value = "delete/{id}")
     public ModelAndView delete(@PathVariable("id") Long id) {
-        this.userRepository.deleteUser(id);
+        this.userRepository.deleteById(id);
         return new ModelAndView("redirect:/");
     }
 
