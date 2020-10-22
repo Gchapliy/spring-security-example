@@ -19,7 +19,7 @@ class RegistrationController {
     @Autowired
     private IUserService userService;
 
-    //
+    //4:20 left
 
     @RequestMapping(value = "signup")
     public ModelAndView registrationForm() {
@@ -32,6 +32,7 @@ class RegistrationController {
             return new ModelAndView("registrationPage", "user", user);
         }
         try {
+            user.setEnabled(false);
             userService.registerNewUser(user);
         } catch (EmailExistsException e) {
             result.addError(new FieldError("user", "email", e.getMessage()));

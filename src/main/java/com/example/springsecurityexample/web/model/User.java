@@ -1,10 +1,6 @@
 package com.example.springsecurityexample.web.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Calendar;
 
 import com.example.springsecurityexample.validation.PasswordMatches;
@@ -31,6 +27,9 @@ public class User {
     private String passwordConfirmation;
 
     private Calendar created = Calendar.getInstance();
+
+    @Column
+    private Boolean enabled;
 
     public Long getId() {
         return this.id;
@@ -70,6 +69,14 @@ public class User {
 
     public void setPasswordConfirmation(final String passwordConfirmation) {
         this.passwordConfirmation = passwordConfirmation;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

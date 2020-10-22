@@ -33,7 +33,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                true,
+                user.getEnabled(),
                 true,
                 true,
                 true,
