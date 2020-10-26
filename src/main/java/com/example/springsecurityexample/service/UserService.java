@@ -2,6 +2,7 @@ package com.example.springsecurityexample.service;
 
 import javax.transaction.Transactional;
 
+import com.example.springsecurityexample.web.model.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,11 @@ class UserService implements IUserService {
     
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Override
+    public User findUserByEmail(String email) {
+        return null;
+    }
 
     @Override
     public User registerNewUser(final User user) throws EmailExistsException {
@@ -47,6 +53,21 @@ class UserService implements IUserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         return repository.save(user);
+    }
+
+    @Override
+    public void createVerificationTokenForUser(User user, String token) {
+
+    }
+
+    @Override
+    public VerificationToken getVerificationToken(String token) {
+        return null;
+    }
+
+    @Override
+    public void saveRegisteredUser(User user) {
+        repository.save(user);
     }
 
 }
